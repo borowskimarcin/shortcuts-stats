@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.marbor112.shortcutsstats.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.marbor112.shortcutsstats.MyBundle
 
 class MyApplicationService {
 
