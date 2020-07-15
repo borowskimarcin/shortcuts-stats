@@ -6,7 +6,9 @@
 ### Added
 
 ### Changed
-
+- UI is responsive.
+- Shortcuts sorted by most used
+- Reset possibility added
 ### Deprecated
 
 ### Removed
