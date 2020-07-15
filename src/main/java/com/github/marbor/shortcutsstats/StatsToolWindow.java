@@ -55,11 +55,9 @@ public class StatsToolWindow implements OnStatisticsChangeListener {
 
 class StatsTableModel extends AbstractTableModel {
     private final Object[][] data;
-    private final String[] columns;
 
     StatsTableModel(Object[][] data) {
         this.data = data;
-        this.columns = new String[]{"Shortcut", "Count"};
     }
 
     @Override
