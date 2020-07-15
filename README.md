@@ -5,7 +5,7 @@
 [![Downloads](https://plugins.jetbrains.com/files/14712/91945/icon/pluginIcon.svg)](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
 
 <!-- Plugin description -->
-This is plugin that counts number of shortcuts usage.
+Intellij plugin that counts number of shortcuts used.
 <!-- Plugin description end -->
 
 ## Installation
