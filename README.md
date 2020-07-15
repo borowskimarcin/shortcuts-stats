@@ -1,7 +1,6 @@
 # Shortcuts stats
 
 ![Build](https://github.com/marbor112/shortcuts-stats/workflows/Build/badge.svg)
-[![Version](https://plugins.jetbrains.com/files/14712/91970/icon/pluginIcon.svg)](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
 [![Downloads](https://plugins.jetbrains.com/files/14712/91970/icon/pluginIcon.svg)](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
 
 <!-- Plugin description -->
