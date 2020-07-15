@@ -1,19 +1,16 @@
 <idea-plugin>
-    <id>com.github.marbor112.shortcutsstats</id>
-    <name>shortcuts-stats</name>
-    <vendor>marbor112</vendor>
+    <id>com.github.marbor.shortcutsstats</id>
+    <name>Shortcuts stats</name>
+    <vendor>marbor</vendor>
 
-    <!-- Product and plugin compatibility requirements -->
-    <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.marbor112.shortcutsstats.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.marbor112.shortcutsstats.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.github.marbor.shortcutsstats.ShortcutsStatistics"/>
+        <toolWindow id="Stats" anchor="right" factoryClass="com.github.marbor.shortcutsstats.StatsToolWindowFactory" icon="AllIcons.Actions.GroupByPrefix"/>
     </extensions>
-
-    <projectListeners>
-        <listener class="com.github.marbor112.shortcutsstats.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </projectListeners>
+    <applicationListeners>
+        <listener class="com.github.marbor.shortcutsstats.ShortcutsListener"
+                  topic="com.intellij.openapi.actionSystem.ex.AnActionListener"/>
+    </applicationListeners>
 </idea-plugin>
