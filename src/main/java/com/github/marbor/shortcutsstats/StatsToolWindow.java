@@ -13,7 +13,7 @@ import static java.util.Comparator.comparingLong;
 public class StatsToolWindow implements OnStatisticsChangeListener {
     private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
     private JPanel myToolWindowContent;
-    private JTable statsTable;
+    private JTable shortcutsStatsTable;
     private JButton resetButton;
     private JLabel totalLabel;
 
@@ -47,8 +47,8 @@ public class StatsToolWindow implements OnStatisticsChangeListener {
                 .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
                 .map(e -> new Object[]{e.getKey(), e.getValue()})
                 .toArray(Object[][]::new);
-
-        statsTable.setModel(new StatsTableModel(stats));
+        shortcutsStatsTable.setModel(new StatsTableModel(stats));
+        shortcutsStatsTable.setTableHeader(null);
         totalLabel.setText("Total: " + total);
     }
 }
@@ -64,7 +64,7 @@ class StatsTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        return columns[column];
+        return null;
     }
 
     @Override
@@ -74,7 +74,7 @@ class StatsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columns.length;
+        return 2;
     }
 
     @Override
