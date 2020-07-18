@@ -49,7 +49,7 @@ public class StatsToolWindow implements OnStatisticsChangeListener {
                 .toArray(Object[][]::new);
         shortcutsStatsTable.setModel(new StatsTableModel(stats));
         shortcutsStatsTable.setTableHeader(null);
-        totalLabel.setText("Total: " + total);
+        totalLabel.setText(shortcutsStatistics.getStatistics().size() + " shortcuts used: " + total + " times.");
     }
 }
 
