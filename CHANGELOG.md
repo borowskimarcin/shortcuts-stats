@@ -16,6 +16,18 @@
 ### Security
 ## [0.0.4]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [0.0.4]
+### Added
 - Link to the github repository added in the plugin description.
 ### Changed
 - Summary now shows also total number of shortcuts used.
