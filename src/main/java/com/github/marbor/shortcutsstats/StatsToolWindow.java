@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.Map;
 import java.util.function.ToLongFunction;
 
+import static com.github.marbor.shortcutsstats.TextUtils.makeHugeNumberShorter;
 import static java.util.Comparator.comparingLong;
 
 public class StatsToolWindow implements OnStatisticsChangeListener {
@@ -49,7 +50,7 @@ public class StatsToolWindow implements OnStatisticsChangeListener {
                 .toArray(Object[][]::new);
         shortcutsStatsTable.setModel(new StatsTableModel(stats));
         shortcutsStatsTable.setTableHeader(null);
-        totalLabel.setText(shortcutsStatistics.getStatistics().size() + " shortcuts used: " + total + " times.");
+        totalLabel.setText(shortcutsStatistics.getStatistics().size() + " shortcuts used: " + makeHugeNumberShorter(total) + " times.");
     }
 }
 

@@ -40,6 +40,14 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.2")
+    testImplementation("org.assertj:assertj-core:3.16.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 // Configure gradle-intellij-plugin plugin.
