@@ -18,6 +18,18 @@
 ### Added
 
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [1.0.0]
+### Added
+
+### Changed
 - Format of the shortcut's counting number changed to handle huge numbers.
 ### Deprecated
 
