@@ -4,8 +4,11 @@
 
 ## [Unreleased]
 ### Added
+- UI changed.
+- Now you can click at the shortcut, and you will see a description.
 
 ### Changed
+- Plugin loads immediately do not wait for intellij indexing.
 
 ### Deprecated
 
@@ -14,18 +17,7 @@
 ### Fixed
 
 ### Security
-## [1.0.0]
-### Added
 
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 ## [1.0.0]
 ### Added
 

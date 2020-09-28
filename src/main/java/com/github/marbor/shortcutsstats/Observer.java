@@ -1,5 +1,5 @@
 package com.github.marbor.shortcutsstats;
 
-public interface OnStatisticsChangeListener {
+public interface Observer {
     void onChange();
 }

@@ -1,30 +1,41 @@
 package com.github.marbor.shortcutsstats;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.util.Map;
 import java.util.function.ToLongFunction;
+import java.util.stream.Collectors;
 
+import static com.github.marbor.shortcutsstats.ShortcutsListener.UNKNOWN_SHORTCUT_DESCRIPTION;
 import static com.github.marbor.shortcutsstats.TextUtils.makeHugeNumberShorter;
+import static com.github.marbor.shortcutsstats.TextUtils.timeOrTimes;
 import static java.util.Comparator.comparingLong;
+import static java.util.Optional.ofNullable;
 
-public class StatsToolWindow implements OnStatisticsChangeListener {
+public class StatsToolWindow implements Observer {
     private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
     private JPanel myToolWindowContent;
-    private JTable shortcutsStatsTable;
     private JButton resetButton;
     private JLabel totalLabel;
+    private JScrollPane shortcutsPanel;
+    private JList<ShortcutView> shortcutsList;
+    private JLabel descriptionLabel;
+    private JPanel descriptionPanel;
 
     public StatsToolWindow(ToolWindow toolWindow) {
-        updateTable();
+        updateView();
         shortcutsStatistics.register(this);
-        resetButton.addActionListener((e) -> {
-            shortcutsStatistics.resetStatistic();
-            updateTable();
-        });
+        resetButton.addActionListener((e) -> resetStats());
+        shortcutsList.addListSelectionListener(this::showDescription);
+        descriptionPanel.setVisible(false);
+        totalLabel.setIcon(AllIcons.Actions.GroupByModuleGroup);
+        resetButton.setIcon(AllIcons.Actions.Cancel);
+        descriptionLabel.setIcon(AllIcons.Actions.IntentionBulb);
     }
 
     public JPanel getContent() {
@@ -33,57 +44,80 @@ public class StatsToolWindow implements OnStatisticsChangeListener {
 
     @Override
     public void onChange() {
-        updateTable();
+        updateView();
     }
 
-    private void updateTable() {
-        final long total = shortcutsStatistics.getStatistics()
-                .values()
-                .stream()
-                .mapToLong(l -> l)
-                .sum();
+    private void updateView() {
+        final long total = shortcutsStatistics.getTotal();
+        final DefaultListModel<ShortcutView> model = new DefaultListModel<>();
 
-        final Object[][] stats = shortcutsStatistics.getStatistics().entrySet()
-                .stream()
-                .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
-                .map(e -> new Object[]{e.getKey(), e.getValue()})
-                .toArray(Object[][]::new);
-        shortcutsStatsTable.setModel(new StatsTableModel(stats));
-        shortcutsStatsTable.setTableHeader(null);
-        totalLabel.setText(shortcutsStatistics.getStatistics().size() + " shortcuts used: " + makeHugeNumberShorter(total) + " times.");
+        model.addAll(
+                shortcutsStatistics.getStatistics()
+                        .entrySet()
+                        .stream()
+                        .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
+                        .map(e -> new ShortcutView(getDisplayText(e), getDescription(e.getKey())))
+                        .collect(Collectors.toList())
+        );
+
+        shortcutsList.setModel(model);
+        totalLabel.setText("Total: " + shortcutsStatistics.getStatistics().size() + " shortcuts used " + makeHugeNumberShorter(total) + " times.");
+    }
+
+    private void showDescription(javax.swing.event.ListSelectionEvent e) {
+        if (e.getValueIsAdjusting() || shortcutsList.getSelectedValue() == null) {
+            return;
+        }
+
+        final String shortcutDescription = ofNullable(shortcutsList.getSelectedValue().getDescription()).orElse("");
+        this.descriptionPanel.setVisible(true);
+
+        if (StringUtils.isBlank(shortcutDescription)) {
+            this.descriptionLabel.setEnabled(false);
+            this.descriptionLabel.setText("N/A - description of the shortcut will appear after next usage.");
+        } else if (UNKNOWN_SHORTCUT_DESCRIPTION.equals(shortcutDescription)) {
+            this.descriptionLabel.setEnabled(false);
+            this.descriptionLabel.setText(shortcutDescription);
+        } else {
+            this.descriptionLabel.setEnabled(true);
+            this.descriptionLabel.setText(shortcutDescription);
+        }
+    }
+
+    private String getDisplayText(java.util.Map.Entry<String, Long> e) {
+        return e.getKey() + " pressed " + e.getValue() + " " + timeOrTimes(e.getValue());
+    }
+
+    private String getDescription(String shortcut) {
+        final String description = shortcutsStatistics.getShortcutDescription().get(shortcut);
+        return description != null ? description : "";
+    }
+
+    private void resetStats() {
+        if (Messages.showYesNoDialog(
+                "Are you sure you would like to remove shortcuts statistics?",
+                "Remove Statistics",
+                Messages.getQuestionIcon()) == Messages.YES) {
+            shortcutsStatistics.resetStatistic();
+        }
     }
 }
 
-class StatsTableModel extends AbstractTableModel {
-    private final Object[][] data;
+class ShortcutView {
+    private final String displayText;
+    private final String description;
 
-    StatsTableModel(Object[][] data) {
-        this.data = data;
+    public ShortcutView(String displayText, String description) {
+        this.displayText = displayText;
+        this.description = description;
     }
 
     @Override
-    public String getColumnName(int column) {
-        return null;
+    public String toString() {
+        return displayText;
     }
 
-    @Override
-    public int getRowCount() {
-        return data.length;
-    }
-
-    @Override
-    public int getColumnCount() {
-        return 2;
-    }
-
-    @Override
-    public Object getValueAt(int row, int col) {
-        return data[row][col];
-    }
-
-    @Override
-    public void setValueAt(Object value, int row, int col) {
-        data[row][col] = value;
-        fireTableCellUpdated(row, col);
+    public String getDescription() {
+        return description;
     }
 }
