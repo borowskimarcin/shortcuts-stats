@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import javax.swing.*;
 import java.util.Map;
 import java.util.function.ToLongFunction;
-import java.util.stream.Collectors;
 
 import static com.github.marbor.shortcutsstats.ShortcutsListener.UNKNOWN_SHORTCUT_DESCRIPTION;
 import static com.github.marbor.shortcutsstats.TextUtils.makeHugeNumberShorter;
@@ -51,14 +50,12 @@ public class StatsToolWindow implements Observer {
         final long total = shortcutsStatistics.getTotal();
         final DefaultListModel<ShortcutView> model = new DefaultListModel<>();
 
-        model.addAll(
-                shortcutsStatistics.getStatistics()
-                        .entrySet()
-                        .stream()
-                        .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
-                        .map(e -> new ShortcutView(getDisplayText(e), getDescription(e.getKey())))
-                        .collect(Collectors.toList())
-        );
+        shortcutsStatistics.getStatistics()
+                .entrySet()
+                .stream()
+                .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
+                .map(e -> new ShortcutView(getDisplayText(e), getDescription(e.getKey())))
+                .forEach(model::addElement);
 
         shortcutsList.setModel(model);
         totalLabel.setText("Total: " + shortcutsStatistics.getStatistics().size() + " shortcuts used " + makeHugeNumberShorter(total) + " times.");
