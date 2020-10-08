@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [2.0.0]
+### Added
 - UI changed.
 - Now you can click at the shortcut, and you will see a description.
 
