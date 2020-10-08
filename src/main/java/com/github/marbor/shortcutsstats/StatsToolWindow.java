@@ -67,7 +67,6 @@ public class StatsToolWindow implements Observer {
         }
 
         final String shortcutDescription = ofNullable(shortcutsList.getSelectedValue().getDescription()).orElse("");
-        this.descriptionPanel.setVisible(true);
 
         if (StringUtils.isBlank(shortcutDescription)) {
             this.descriptionLabel.setEnabled(false);

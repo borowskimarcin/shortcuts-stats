@@ -17,7 +17,7 @@ public class ShortcutsListener implements AnActionListener {
     private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
 
     public void afterActionPerformed(@NotNull AnAction action, @NotNull DataContext dataContext, @NotNull AnActionEvent event) {
-        Optional.ofNullable(getEventCallerKeystrokeText(event))
+        getEventCallerKeystrokeText(event)
                 .ifPresent(shortcut -> shortcutsStatistics.addShortcutUsage(shortcut, getShortcutDescription(action)));
     }
 
@@ -27,12 +27,12 @@ public class ShortcutsListener implements AnActionListener {
     }
 
     // This is replacement for the KeymapUtil.getEventCallerKeystrokeText(event) that will be deprecated
-    public static String getEventCallerKeystrokeText(@NotNull AnActionEvent event) {
+    public static Optional<String> getEventCallerKeystrokeText(@NotNull AnActionEvent event) {
         if (event.getInputEvent() instanceof KeyEvent) {
             KeyEvent ke = (KeyEvent) event.getInputEvent();
-            return KeymapUtil.getKeystrokeText(KeyStroke.getKeyStroke(ke.getKeyCode(), ke.getModifiersEx()));
+            return Optional.of(KeymapUtil.getKeystrokeText(KeyStroke.getKeyStroke(ke.getKeyCode(), ke.getModifiersEx())));
         }
 
-        return null;
+        return Optional.empty();
     }
 }
