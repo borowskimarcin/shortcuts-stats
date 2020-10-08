@@ -7,7 +7,7 @@
 Intellij plugin that counts number of shortcuts used. Find more here: https://github.com/borowskimarcin/shortcuts-stats.
 <!-- Plugin description end -->
 
-![Shortcuts stats plugin](https://drive.google.com/uc?export=view&amp;id=10v4ByRyXvr2PSp6DnRa2tOs25ccNp5JU)
+![Shortcuts stats plugin](https://drive.google.com/uc?export=view&amp;id=16IZLa9ABmBUQMkf42IyEY4f12UyhMSMV)
 
 ## Installation
 
