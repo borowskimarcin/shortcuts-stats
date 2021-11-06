@@ -39,6 +39,7 @@ repositories {
 }
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("org.apache.commons:commons-csv:1.9.0")
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.2")
