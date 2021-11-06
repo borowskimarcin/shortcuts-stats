@@ -1,5 +1,6 @@
 package com.github.marbor.shortcutsstats;
 
+import com.github.marbor.shortcutsstats.model.Shortcut;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ui.Messages;
@@ -7,8 +8,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
-import java.util.Map;
-import java.util.function.ToLongFunction;
 
 import static com.github.marbor.shortcutsstats.ShortcutsListener.UNKNOWN_SHORTCUT_DESCRIPTION;
 import static com.github.marbor.shortcutsstats.TextUtils.makeHugeNumberShorter;
@@ -50,15 +49,14 @@ public class StatsToolWindow implements Observer {
         final long total = shortcutsStatistics.getTotal();
         final DefaultListModel<ShortcutView> model = new DefaultListModel<>();
 
-        shortcutsStatistics.getStatistics()
-                .entrySet()
+        shortcutsStatistics.getShortcuts()
                 .stream()
-                .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
-                .map(e -> new ShortcutView(getDisplayText(e), getDescription(e.getKey())))
+                .sorted(comparingLong(Shortcut::getCount).reversed())
+                .map(s -> new ShortcutView(getDisplayText(s), getDescription(s)))
                 .forEach(model::addElement);
 
         shortcutsList.setModel(model);
-        totalLabel.setText("Total: " + shortcutsStatistics.getStatistics().size() + " shortcuts used " + makeHugeNumberShorter(total) + " times.");
+        totalLabel.setText("Total: " + shortcutsStatistics.getShortcutsNumber() + " shortcuts used " + makeHugeNumberShorter(total) + " times.");
     }
 
     private void showDescription(javax.swing.event.ListSelectionEvent e) {
@@ -80,12 +78,12 @@ public class StatsToolWindow implements Observer {
         }
     }
 
-    private String getDisplayText(java.util.Map.Entry<String, Long> e) {
-        return e.getKey() + " pressed " + e.getValue() + " " + timeOrTimes(e.getValue());
+    private String getDisplayText(Shortcut shortcut) {
+        return shortcut.getName() + " pressed " + shortcut.getCount() + " " + timeOrTimes(shortcut.getCount());
     }
 
-    private String getDescription(String shortcut) {
-        final String description = shortcutsStatistics.getShortcutDescription().get(shortcut);
+    private String getDescription(Shortcut shortcut) {
+        final String description = shortcut.getDescription();
         return description != null ? description : "";
     }
 
