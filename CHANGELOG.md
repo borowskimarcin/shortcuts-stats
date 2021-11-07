@@ -4,9 +4,9 @@
 
 ## [Unreleased]
 ### Added
-
+- A possibility to export shortcut statistics to a csv file.
 ### Changed
-
+- UI changes, the remove button moved to action panel and export action added.
 ### Deprecated
 
 ### Removed
