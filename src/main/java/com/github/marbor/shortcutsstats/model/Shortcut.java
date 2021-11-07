@@ -1,18 +1,18 @@
 package com.github.marbor.shortcutsstats.model;
 
 public class Shortcut {
-    private final String name;
+    private final String shortcut;
     private final String description;
     private final Long count;
 
-    public Shortcut(String name, String description, Long count) {
-        this.name = name;
+    public Shortcut(String shortcut, String description, Long count) {
+        this.shortcut = shortcut;
         this.description = description;
         this.count = count;
     }
 
-    public String getName() {
-        return name;
+    public String getShortcut() {
+        return shortcut;
     }
 
     public String getDescription() {

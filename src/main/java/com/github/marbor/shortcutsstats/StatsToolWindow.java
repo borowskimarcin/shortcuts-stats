@@ -86,7 +86,7 @@ public class StatsToolWindow implements Observer {
     }
 
     private String getDisplayText(Shortcut shortcut) {
-        return shortcut.getName() + " pressed " + shortcut.getCount() + " " + timeOrTimes(shortcut.getCount());
+        return shortcut.getShortcut() + " pressed " + shortcut.getCount() + " " + timeOrTimes(shortcut.getCount());
     }
 
     private String getDescription(Shortcut shortcut) {
