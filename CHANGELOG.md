@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+## [2.1.0]
+### Added
 - A possibility to export shortcut stats to a csv file added.
 - Export shortcuts stats and reset stats actions added.
 ### Changed
