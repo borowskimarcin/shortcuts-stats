@@ -1,14 +1,22 @@
 package com.github.marbor.shortcutsstats;
 
+import com.github.marbor.shortcutsstats.actions.ExportAction;
+import com.github.marbor.shortcutsstats.actions.ResetAction;
+import com.github.marbor.shortcutsstats.model.Shortcut;
+import com.github.marbor.shortcutsstats.model.ShortcutView;
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionToolbar;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
 import org.apache.commons.lang.StringUtils;
 
-import javax.swing.*;
-import java.util.Map;
-import java.util.function.ToLongFunction;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import static com.github.marbor.shortcutsstats.ShortcutsListener.UNKNOWN_SHORTCUT_DESCRIPTION;
 import static com.github.marbor.shortcutsstats.TextUtils.makeHugeNumberShorter;
@@ -19,21 +27,19 @@ import static java.util.Optional.ofNullable;
 public class StatsToolWindow implements Observer {
     private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
     private JPanel myToolWindowContent;
-    private JButton resetButton;
     private JLabel totalLabel;
     private JScrollPane shortcutsPanel;
     private JList<ShortcutView> shortcutsList;
     private JLabel descriptionLabel;
     private JPanel descriptionPanel;
+    private JPanel toolBarPanel;
 
     public StatsToolWindow(ToolWindow toolWindow) {
         updateView();
         shortcutsStatistics.register(this);
-        resetButton.addActionListener((e) -> resetStats());
         shortcutsList.addListSelectionListener(this::showDescription);
         descriptionPanel.setVisible(false);
         totalLabel.setIcon(AllIcons.Actions.GroupByModuleGroup);
-        resetButton.setIcon(AllIcons.Actions.Cancel);
         descriptionLabel.setIcon(AllIcons.Actions.IntentionBulb);
     }
 
@@ -47,25 +53,23 @@ public class StatsToolWindow implements Observer {
     }
 
     private void updateView() {
-        final long total = shortcutsStatistics.getTotal();
         final DefaultListModel<ShortcutView> model = new DefaultListModel<>();
 
-        shortcutsStatistics.getStatistics()
-                .entrySet()
+        shortcutsStatistics.getShortcuts()
                 .stream()
-                .sorted(comparingLong((ToLongFunction<Map.Entry<String, Long>>) Map.Entry::getValue).reversed())
-                .map(e -> new ShortcutView(getDisplayText(e), getDescription(e.getKey())))
+                .sorted(comparingLong(Shortcut::getCount).reversed())
+                .map(s -> new ShortcutView(getDisplayText(s), getDescription(s)))
                 .forEach(model::addElement);
 
         shortcutsList.setModel(model);
-        totalLabel.setText("Total: " + shortcutsStatistics.getStatistics().size() + " shortcuts used " + makeHugeNumberShorter(total) + " times.");
+        totalLabel.setText("Total: " + shortcutsStatistics.getShortcutsNumber() + " shortcuts used " + makeHugeNumberShorter(shortcutsStatistics.getTotal()) + " times.");
     }
 
     private void showDescription(javax.swing.event.ListSelectionEvent e) {
         if (e.getValueIsAdjusting() || shortcutsList.getSelectedValue() == null) {
             return;
         }
-
+        descriptionPanel.setVisible(true);
         final String shortcutDescription = ofNullable(shortcutsList.getSelectedValue().getDescription()).orElse("");
 
         if (StringUtils.isBlank(shortcutDescription)) {
@@ -80,40 +84,27 @@ public class StatsToolWindow implements Observer {
         }
     }
 
-    private String getDisplayText(java.util.Map.Entry<String, Long> e) {
-        return e.getKey() + " pressed " + e.getValue() + " " + timeOrTimes(e.getValue());
+    private String getDisplayText(Shortcut shortcut) {
+        return shortcut.getShortcut() + " pressed " + shortcut.getCount() + " " + timeOrTimes(shortcut.getCount());
     }
 
-    private String getDescription(String shortcut) {
-        final String description = shortcutsStatistics.getShortcutDescription().get(shortcut);
+    private String getDescription(Shortcut shortcut) {
+        final String description = shortcut.getDescription();
         return description != null ? description : "";
     }
 
-    private void resetStats() {
-        if (Messages.showYesNoDialog(
-                "Are you sure you would like to remove shortcuts statistics?",
-                "Remove Statistics",
-                Messages.getQuestionIcon()) == Messages.YES) {
-            shortcutsStatistics.resetStatistic();
-        }
+    private void createUIComponents() {
+        toolBarPanel = new JPanel();
+        DefaultActionGroup actions = new DefaultActionGroup();
+        final ExportAction exportAction = new ExportAction();
+        final ResetAction resetAction = new ResetAction();
+        actions.add(exportAction);
+        actions.add(resetAction);
+        ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("shortcuts-toolbar", actions, true);
+        toolbar.setTargetComponent(toolBarPanel);
+        toolBarPanel.add(toolbar.getComponent());
+        ActionManager.getInstance().registerAction("resetShortcutsAction", resetAction);
+        ActionManager.getInstance().registerAction("exportShortcutsAction", exportAction);
     }
 }
 
-class ShortcutView {
-    private final String displayText;
-    private final String description;
-
-    public ShortcutView(String displayText, String description) {
-        this.displayText = displayText;
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return displayText;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-}

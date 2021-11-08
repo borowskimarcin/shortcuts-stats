@@ -1,5 +1,6 @@
 package com.github.marbor.shortcutsstats;
 
+import com.github.marbor.shortcutsstats.model.Shortcut;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.RoamingType;
 import com.intellij.openapi.components.State;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @State(
         name = "ShortcutsStatistic",
@@ -75,13 +77,21 @@ public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsSt
     }
 
     @Transient
-    public Map<String, Long> getStatistics() {
-        return new HashMap<>(statistics);
+    public int getShortcutsNumber() {
+        return statistics.size();
     }
 
     @Transient
-    public Map<String, String> getShortcutDescription() {
-        return new HashMap<>(shortcutDescription);
+    public List<Shortcut> getShortcuts() {
+        return statistics.entrySet()
+                .stream()
+                .map(entry ->
+                        new Shortcut(
+                                entry.getKey(),
+                                shortcutDescription.get(entry.getKey()),
+                                entry.getValue()))
+                .sorted(Comparator.comparing(Shortcut::getCount).reversed())
+                .collect(Collectors.toList());
     }
 
     @Transient

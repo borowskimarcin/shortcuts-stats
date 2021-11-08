@@ -4,9 +4,11 @@
 
 ## [Unreleased]
 ### Added
-
+- A possibility to export shortcut stats to a csv file added.
+- Export shortcuts stats and reset stats actions added.
 ### Changed
-
+- The "Remove" button deleted.
+- The action toolbar introduced.
 ### Deprecated
 
 ### Removed
