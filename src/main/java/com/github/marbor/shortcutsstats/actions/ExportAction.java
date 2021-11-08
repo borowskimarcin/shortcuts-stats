@@ -22,7 +22,7 @@ public class ExportAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        final FileSaverDescriptor singleFileDescriptor = new FileSaverDescriptor("Save Shortcuts", "Save shortcuts", "csv");
+        final FileSaverDescriptor singleFileDescriptor = new FileSaverDescriptor("Export Shortcuts", "Export shortcuts", "csv");
         final FileSaverDialog saveFileDialog = FileChooserFactory.getInstance().createSaveFileDialog(singleFileDescriptor, e.getProject());
         final VirtualFileWrapper virtualFileWrapper = saveFileDialog.save(null, "shortcuts.csv");
         if (virtualFileWrapper != null) {
