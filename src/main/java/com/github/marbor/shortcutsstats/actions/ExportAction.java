@@ -17,7 +17,7 @@ public class ExportAction extends AnAction {
     private final ExportStatistics exportStatistics = new ExportStatistics();
 
     public ExportAction() {
-        super("Export Shortcuts to File", "Export shortcuts to file", AllIcons.Actions.Menu_saveall);
+        super("Export Shortcuts Stats to File", "Export shortcuts stats to file", AllIcons.Actions.Menu_saveall);
     }
 
     @Override

@@ -53,7 +53,6 @@ public class StatsToolWindow implements Observer {
     }
 
     private void updateView() {
-        final long total = shortcutsStatistics.getTotal();
         final DefaultListModel<ShortcutView> model = new DefaultListModel<>();
 
         shortcutsStatistics.getShortcuts()
@@ -63,7 +62,7 @@ public class StatsToolWindow implements Observer {
                 .forEach(model::addElement);
 
         shortcutsList.setModel(model);
-        totalLabel.setText("Total: " + shortcutsStatistics.getShortcutsNumber() + " shortcuts used " + makeHugeNumberShorter(total) + " times.");
+        totalLabel.setText("Total: " + shortcutsStatistics.getShortcutsNumber() + " shortcuts used " + makeHugeNumberShorter(shortcutsStatistics.getTotal()) + " times.");
     }
 
     private void showDescription(javax.swing.event.ListSelectionEvent e) {
@@ -97,10 +96,15 @@ public class StatsToolWindow implements Observer {
     private void createUIComponents() {
         toolBarPanel = new JPanel();
         DefaultActionGroup actions = new DefaultActionGroup();
-        actions.add(new ExportAction());
-        actions.add(new ResetAction());
+        final ExportAction exportAction = new ExportAction();
+        final ResetAction resetAction = new ResetAction();
+        actions.add(exportAction);
+        actions.add(resetAction);
         ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("shortcuts-toolbar", actions, true);
+        toolbar.setTargetComponent(toolBarPanel);
         toolBarPanel.add(toolbar.getComponent());
+        ActionManager.getInstance().registerAction("resetShortcutsAction", resetAction);
+        ActionManager.getInstance().registerAction("exportShortcutsAction", exportAction);
     }
 }
 

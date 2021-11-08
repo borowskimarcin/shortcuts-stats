@@ -12,7 +12,7 @@ public class ResetAction extends AnAction {
     private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
 
     public ResetAction() {
-        super("Reset Shortcuts", "Reset shortcuts", AllIcons.Actions.Cancel);
+        super("Reset Shortcuts Stats", "Reset shortcuts stats", AllIcons.Actions.Cancel);
     }
 
     @Override
