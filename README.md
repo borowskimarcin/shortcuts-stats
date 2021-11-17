@@ -4,11 +4,10 @@
 [![Downloads](https://plugins.jetbrains.com/files/14712/91970/icon/pluginIcon.svg)](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
 
 <!-- Plugin description -->
-Intellij plugin that counts number of shortcuts used. Find more here: https://github.com/borowskimarcin/shortcuts-stats.
+Intellij plugin that counts number of shortcuts used.
 <!-- Plugin description end -->
 
-![Shortcuts stats plugin](https://drive.google.com/uc?export=view&amp;id=16IZLa9ABmBUQMkf42IyEY4f12UyhMSMV)
-
+![Shortcuts stats plugin](https://lh3.googleusercontent.com/GOEFu7nJUBN4SVBBw_VXBCa8RUXKqCOh09knwp8FCkAdyWE2bBZ390UyJXNNzTsX7YsWfqUSvVZS7g=w3359-h1878-rw)
 ## Installation
 
 - Using IDE built-in plugin system:
