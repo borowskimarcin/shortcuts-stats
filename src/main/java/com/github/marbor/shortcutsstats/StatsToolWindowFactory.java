@@ -9,7 +9,7 @@ import com.intellij.ui.content.ContentFactory;
 import org.jetbrains.annotations.NotNull;
 
 public class StatsToolWindowFactory implements ToolWindowFactory, DumbAware {
-    
+
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         StatsToolWindow myToolWindow = new StatsToolWindow(toolWindow);

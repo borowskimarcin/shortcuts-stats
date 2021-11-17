@@ -8,7 +8,7 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.wm.ToolWindow;
 import org.apache.commons.lang.StringUtils;
 
@@ -25,7 +25,7 @@ import static java.util.Comparator.comparingLong;
 import static java.util.Optional.ofNullable;
 
 public class StatsToolWindow implements Observer {
-    private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
+    private final ShortcutsStatistics shortcutsStatistics = ApplicationManager.getApplication().getService(ShortcutsStatistics.class);
     private JPanel myToolWindowContent;
     private JLabel totalLabel;
     private JScrollPane shortcutsPanel;

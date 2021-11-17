@@ -6,7 +6,8 @@
 ### Added
 
 ### Changed
-
+- Plugin adjusted for the 2021.3.* intellij version.
+- Only the Intellij version higher than 2021.2 supported.
 ### Deprecated
 
 ### Removed

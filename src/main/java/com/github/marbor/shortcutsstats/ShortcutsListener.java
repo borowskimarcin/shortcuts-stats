@@ -2,21 +2,22 @@ package com.github.marbor.shortcutsstats;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.actionSystem.AnActionResult;
 import com.intellij.openapi.actionSystem.ex.AnActionListener;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.keymap.KeymapUtil;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.util.Optional;
 
 public class ShortcutsListener implements AnActionListener {
     public static final String UNKNOWN_SHORTCUT_DESCRIPTION = "N/A - unknown shortcut description";
-    private final ShortcutsStatistics shortcutsStatistics = ServiceManager.getService(ShortcutsStatistics.class);
+    private final ShortcutsStatistics shortcutsStatistics = ApplicationManager.getApplication().getService(ShortcutsStatistics.class);
 
-    public void afterActionPerformed(@NotNull AnAction action, @NotNull DataContext dataContext, @NotNull AnActionEvent event) {
+    @Override
+    public void afterActionPerformed(@NotNull AnAction action, @NotNull AnActionEvent event, @NotNull AnActionResult result) {
         getEventCallerKeystrokeText(event)
                 .ifPresent(shortcut -> shortcutsStatistics.addShortcutUsage(shortcut, getShortcutDescription(action)));
     }
