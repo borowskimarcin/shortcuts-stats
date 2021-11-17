@@ -26,10 +26,15 @@ repositories {
 
 dependencies {
     implementation("org.apache.commons:commons-csv:1.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.2")
+    testImplementation(platform("org.junit:junit-bom:5.8.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.assertj:assertj-core:3.16.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
