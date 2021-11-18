@@ -3,19 +3,19 @@
 # shortcuts-stats Changelog
 
 ## [Unreleased]
+
+## [2.3.0]
 ### Changed
-- Plugin adjusted for the 2021.3.* intellij version.
-- Only the Intellij version higher than 2021.2 supported.
 
 ## [2.1.0]
 ### Added
 - A possibility to export shortcut stats to a csv file added.
 - Export shortcuts stats and reset stats actions added.
+
 ### Changed
 - The "Remove" button deleted.
 - The action toolbar introduced.
 
-### Security
 ## [2.0.0]
 ### Added
 - UI changed.
@@ -31,6 +31,7 @@
 ## [0.0.4]
 ### Added
 - Link to the github repository added in the plugin description.
+
 ### Changed
 - Summary now shows also total number of shortcuts used.
 
