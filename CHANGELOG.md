@@ -1,10 +1,9 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
-
 # shortcuts-stats Changelog
 
 ## [Unreleased]
 ### Changed
-- Plugin adjusted for the 2021.3.* intellij version.
+- Plugin adjusted for the 2021.3 intellij version.
 - Only the Intellij version higher than 2021.2 supported.
 
 ## [2.1.0]
@@ -15,7 +14,6 @@
 - The "Remove" button deleted.
 - The action toolbar introduced.
 
-### Security
 ## [2.0.0]
 ### Added
 - UI changed.

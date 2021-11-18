@@ -42,12 +42,8 @@ jobs:
 
       # Update Unreleased section with the current release note
       - name: Patch Changelog
-        if: ${{ steps.properties.outputs.changelog != '' }}
         run: |
-          ./gradlew patchChangelog --release-note "$(cat << 'EOM'
-          ${{ steps.properties.outputs.changelog }}
-          EOM
-          )"
+          ./gradlew patchChangelog
 
       # Publish the plugin to the Marketplace
       - name: Publish Plugin
