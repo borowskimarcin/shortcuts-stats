@@ -28,8 +28,6 @@
 ### Changed
 - Format of the shortcut's counting number changed to handle huge numbers.
 
-## [0.0.5]
-
 ## [0.0.4]
 ### Added
 - Link to the github repository added in the plugin description.
