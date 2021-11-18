@@ -3,18 +3,10 @@
 # shortcuts-stats Changelog
 
 ## [Unreleased]
-### Added
-
 ### Changed
 - Plugin adjusted for the 2021.3.* intellij version.
 - Only the Intellij version higher than 2021.2 supported.
-### Deprecated
 
-### Removed
-
-### Fixed
-
-### Security
 ## [2.1.0]
 ### Added
 - A possibility to export shortcut stats to a csv file added.
