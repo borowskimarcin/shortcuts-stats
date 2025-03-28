@@ -15,10 +15,10 @@ public class ExportStatistics {
 
     public void export(File file, List<Shortcut> shortcuts) {
         try (FileWriter out = new FileWriter(file)) {
-            try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.Builder.create().setHeader("shortcut", "description", "count").build())) {
+            try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.Builder.create().setHeader("shortcut", "description", "count").get())) {
                 shortcuts.forEach(s -> {
                     try {
-                        printer.printRecord(s.getShortcut(), s.getDescription(), s.getCount());
+                        printer.printRecord(s.shortcut(), s.description(), s.count());
                     } catch (IOException e) {
                         log.error("Error when converting shortcut statistics to the CSV format", e);
                     }

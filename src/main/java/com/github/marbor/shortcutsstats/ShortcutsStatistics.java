@@ -94,7 +94,7 @@ public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsSt
                                 entry.getKey(),
                                 shortcutDescription.get(entry.getKey()),
                                 entry.getValue()))
-                .sorted(Comparator.comparing(Shortcut::getCount).reversed())
+                .sorted(Comparator.comparing(Shortcut::count).reversed())
                 .collect(Collectors.toList());
     }
 

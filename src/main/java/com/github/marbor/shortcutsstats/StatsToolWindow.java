@@ -57,7 +57,7 @@ public class StatsToolWindow implements Observer {
 
         shortcutsStatistics.getShortcuts()
                 .stream()
-                .sorted(comparingLong(Shortcut::getCount).reversed())
+                .sorted(comparingLong(Shortcut::count).reversed())
                 .map(s -> new ShortcutView(getDisplayText(s), getDescription(s)))
                 .forEach(model::addElement);
 
@@ -85,11 +85,11 @@ public class StatsToolWindow implements Observer {
     }
 
     private String getDisplayText(Shortcut shortcut) {
-        return shortcut.getShortcut() + " pressed " + shortcut.getCount() + " " + timeOrTimes(shortcut.getCount());
+        return shortcut.shortcut() + " pressed " + shortcut.count() + " " + timeOrTimes(shortcut.count());
     }
 
     private String getDescription(Shortcut shortcut) {
-        final String description = shortcut.getDescription();
+        final String description = shortcut.description();
         return description != null ? description : "";
     }
 
