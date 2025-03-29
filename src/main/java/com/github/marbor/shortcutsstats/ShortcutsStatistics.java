@@ -13,13 +13,15 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparingLong;
 
 @State(
         name = "ShortcutsStatistic",
@@ -32,7 +34,9 @@ import java.util.stream.Collectors;
 )
 public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsStatistics> {
     private final List<Observer> observers = new ArrayList<>();
-
+    private final Set<String> FILTERED_SHORTCUTS = Set.of(
+        "↑", "↓", "→", "←", "⎋", "⌫", "⏎"
+    );
     @MapAnnotation(surroundKeyWithTag = false, surroundValueWithTag = false, surroundWithTag = false, entryTagName = "Statistic", keyAttributeName = "Action")
     private final Map<String, Long> statistics = new ConcurrentHashMap<>();
 
@@ -54,9 +58,10 @@ public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsSt
 
         // This is for backward compatibility
         this.total.set(
-                this.statistics
-                        .values()
+                this.statistics.entrySet()
                         .stream()
+                        .filter(s -> !FILTERED_SHORTCUTS.contains(s.getKey()))
+                        .map(Map.Entry::getValue)
                         .mapToLong(l -> l)
                         .sum()
         );
@@ -68,7 +73,9 @@ public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsSt
                 key,
                 (shortcut, counter) -> Optional.ofNullable(counter).map(c -> c + 1).orElse(1L)
         );
-        total.incrementAndGet();
+        if (!FILTERED_SHORTCUTS.contains(key)) {
+            total.incrementAndGet();
+        }
         Optional.ofNullable(desc).ifPresent((d -> shortcutDescription.put(key, d)));
         observers.forEach(Observer::onChange);
     }
@@ -89,12 +96,13 @@ public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsSt
     public List<Shortcut> getShortcuts() {
         return statistics.entrySet()
                 .stream()
+                .filter(e -> !FILTERED_SHORTCUTS.contains(e.getKey()))
                 .map(entry ->
                         new Shortcut(
                                 entry.getKey(),
                                 shortcutDescription.get(entry.getKey()),
                                 entry.getValue()))
-                .sorted(Comparator.comparing(Shortcut::count).reversed())
+                .sorted(comparingLong(Shortcut::count).reversed())
                 .collect(Collectors.toList());
     }
 

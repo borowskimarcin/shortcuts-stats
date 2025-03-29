@@ -2,6 +2,10 @@
 # shortcuts-stats Changelog
 
 ## [Unreleased]
+### Changed
+- "↑", "↓", "→", "←", "⎋", "⌫", and "⏎" ignored in the shortcut stats panel.
+- A description of each shortcut displayed.
+- All necessary dependencies updated.
 
 ## [2.4.0]
 ### Changed
