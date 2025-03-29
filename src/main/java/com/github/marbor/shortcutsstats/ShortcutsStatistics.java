@@ -35,7 +35,7 @@ import static java.util.Comparator.comparingLong;
 public class ShortcutsStatistics implements PersistentStateComponent<ShortcutsStatistics> {
     private final List<Observer> observers = new ArrayList<>();
     private final Set<String> FILTERED_SHORTCUTS = Set.of(
-        "↑", "↓", "→", "←", "⎋"
+        "↑", "↓", "→", "←", "⎋", "⌫", "⏎"
     );
     @MapAnnotation(surroundKeyWithTag = false, surroundValueWithTag = false, surroundWithTag = false, entryTagName = "Statistic", keyAttributeName = "Action")
     private final Map<String, Long> statistics = new ConcurrentHashMap<>();
