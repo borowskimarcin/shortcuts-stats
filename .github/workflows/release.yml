@@ -31,12 +31,6 @@ jobs:
           distribution: zulu
           java-version: 17
 
-      - name: Maximize Build Space
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: false
-          large-packages: false
-
       # Setup Gradle
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
