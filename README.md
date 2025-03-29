@@ -7,14 +7,13 @@
 Intellij plugin that counts number of shortcuts used.
 <!-- Plugin description end -->
 
-![Shortcuts stats plugin](https://lh3.googleusercontent.com/GOEFu7nJUBN4SVBBw_VXBCa8RUXKqCOh09knwp8FCkAdyWE2bBZ390UyJXNNzTsX7YsWfqUSvVZS7g=w3359-h1878-rw)
 ## Installation
 
 - Using IDE built-in plugin system:
-  
+
   <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "shortcuts-stats"</kbd> >
   <kbd>Install Plugin</kbd>
-  
+
 - Manually:
 
   Download the [latest release](https://github.com/marbor112/shortcuts-stats/releases/latest) and install it manually using

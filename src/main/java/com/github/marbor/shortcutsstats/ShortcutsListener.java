@@ -29,8 +29,7 @@ public class ShortcutsListener implements AnActionListener {
 
     // This is replacement for the KeymapUtil.getEventCallerKeystrokeText(event) that will be deprecated
     public static Optional<String> getEventCallerKeystrokeText(@NotNull AnActionEvent event) {
-        if (event.getInputEvent() instanceof KeyEvent) {
-            KeyEvent ke = (KeyEvent) event.getInputEvent();
+        if (event.getInputEvent() instanceof KeyEvent ke) {
             return Optional.of(KeymapUtil.getKeystrokeText(KeyStroke.getKeyStroke(ke.getKeyCode(), ke.getModifiersEx())));
         }
 
