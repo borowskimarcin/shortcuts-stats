@@ -20,8 +20,6 @@ import javax.swing.JScrollPane;
 
 import static com.github.marbor.shortcutsstats.ShortcutsListener.UNKNOWN_SHORTCUT_DESCRIPTION;
 import static com.github.marbor.shortcutsstats.TextUtils.makeHugeNumberShorter;
-import static com.github.marbor.shortcutsstats.TextUtils.timeOrTimes;
-import static java.util.Comparator.comparingLong;
 import static java.util.Optional.ofNullable;
 
 public class StatsToolWindow implements Observer {
