@@ -1,10 +1,10 @@
-# Shortcuts stats
+# [Shortcuts stats](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
+[![](https://plugins.jetbrains.com/files/14712/146389/icon/default.svg)](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
 
 ![Build](https://github.com/marbor112/shortcuts-stats/workflows/Build/badge.svg)
-[![Downloads](https://plugins.jetbrains.com/files/14712/91970/icon/pluginIcon.svg)](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats)
 
 <!-- Plugin description -->
-Intellij plugin that counts number of shortcuts used.
+[Intellij plugin](https://plugins.jetbrains.com/plugin/14712-shortcuts-stats) that counts number of shortcuts used.
 <!-- Plugin description end -->
 
 ## Installation
