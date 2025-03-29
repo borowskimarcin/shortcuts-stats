@@ -4,6 +4,7 @@ import com.github.marbor.shortcutsstats.ShortcutsStatistics;
 import com.github.marbor.shortcutsstats.export.ExportStatistics;
 import com.intellij.icons.AllIcons;
 import com.intellij.icons.ExpUiIcons;
+import com.intellij.ide.lightEdit.LightEditSaveStatusIcon;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.application.ApplicationManager;
@@ -18,7 +19,7 @@ public class ExportAction extends AnAction {
     private final ExportStatistics exportStatistics = new ExportStatistics();
 
     public ExportAction() {
-        super("Export Shortcuts Stats to File", "Export shortcuts stats to file", ExpUiIcons.General.Save);
+        super("Export Shortcuts Stats to File", "Export shortcuts stats to file", AllIcons.Actions.MenuSaveall);
     }
 
     @Override
