@@ -100,8 +100,6 @@ public class StatsToolWindow implements Observer {
         ActionToolbar toolbar = ActionManager.getInstance().createActionToolbar("shortcuts-toolbar", actions, true);
         toolbar.setTargetComponent(toolBarPanel);
         toolBarPanel.add(toolbar.getComponent());
-        ActionManager.getInstance().registerAction("resetShortcutsAction", resetAction);
-        ActionManager.getInstance().registerAction("exportShortcutsAction", exportAction);
     }
 }
 
