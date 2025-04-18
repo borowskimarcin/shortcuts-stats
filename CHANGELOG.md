@@ -3,6 +3,9 @@
 # shortcuts-stats Changelog
 
 ## [Unreleased]
+
+## [3.0.1] - 2025-04-18
+
 - fixing errors like: java.lang.Throwable: ID 'resetShortcutsAction' is already taken by action
 
 ## [3.0.0] - 2025-03-29
@@ -73,7 +76,8 @@
 
 - Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
 
-[Unreleased]: https://github.com/borowskimarcin/shortcuts-stats/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/borowskimarcin/shortcuts-stats/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/borowskimarcin/shortcuts-stats/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/borowskimarcin/shortcuts-stats/compare/v2.4.0...v3.0.0
 [2.4.0]: https://github.com/borowskimarcin/shortcuts-stats/compare/v2.1.0...v2.4.0
 [2.1.0]: https://github.com/borowskimarcin/shortcuts-stats/compare/v2.0.0...v2.1.0
