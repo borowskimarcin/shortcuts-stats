@@ -3,6 +3,7 @@
 # shortcuts-stats Changelog
 
 ## [Unreleased]
+- fixing errors like: java.lang.Throwable: ID 'resetShortcutsAction' is already taken by action
 
 ## [3.0.0] - 2025-03-29
 
